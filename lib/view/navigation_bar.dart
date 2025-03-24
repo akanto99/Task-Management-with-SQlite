@@ -9,9 +9,8 @@ import 'package:razinsoft_task_management/view/screens/home/home_screen.dart';
 import 'package:razinsoft_task_management/view/screens/task/task_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
-  final int initialIndex;
 
-  const NavigationScreen({super.key, this.initialIndex = 1});
+  const NavigationScreen({super.key, });
 
   @override
   State<NavigationScreen> createState() => _NavigationScreenState();
@@ -20,13 +19,13 @@ class NavigationScreen extends StatefulWidget {
 class _NavigationScreenState extends State<NavigationScreen> {
   int _currentIndex = 0;
 
-  final List<String> unselectedIcons = [
+  final List<String> selectedIcons = [
     "assets/images/navbar/homebg.svg",
     "assets/images/navbar/assignbg.svg",
     "assets/images/navbar/calbg.svg",
   ];
 
-  final List<String> selectedIcons = [
+  final List<String> unselectedIcons = [
     "assets/images/navbar/home.svg",
     "assets/images/navbar/assign.svg",
     "assets/images/navbar/cal.svg",
@@ -41,7 +40,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
   @override
   void initState() {
     super.initState();
-    _currentIndex = widget.initialIndex;
   }
 
   @override

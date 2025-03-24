@@ -77,10 +77,10 @@ class _CustomTextFieldWithFormFieldState extends State<CustomTextFieldWithFormFi
                   height: screenHeight * 0.055,
                   width: screenWidth * 0.80,
                   decoration: BoxDecoration(
-                    color: isDarkMode? AppColors.whiteColor:AppColors.whiteColor,
+                    color: AppColors.whiteColor,
                     borderRadius: BorderRadius.circular(16.0),
                     border: Border.all(
-                      color:isDarkMode ? Color(0xff414243) : AppColors.whiteColor,
+                      color:AppColors.blackColor,
                       width: 2,
                     ),
                   ),
@@ -97,7 +97,7 @@ class _CustomTextFieldWithFormFieldState extends State<CustomTextFieldWithFormFi
                       hintStyle: GoogleFonts.urbanist(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
-                      color: isDarkMode ? AppColors.whiteColor: AppColors.whiteColor,
+                      color: AppColors.blackColor,
                       letterSpacing: 0.8,
                     ),
                       border: OutlineInputBorder(
@@ -148,7 +148,7 @@ class _CustomTextFieldWithFormFieldState extends State<CustomTextFieldWithFormFi
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          color:AppColors.whiteColor,
+                          color:AppColors.blackColor,
                           letterSpacing: 0.2
                         ),
                       ),
