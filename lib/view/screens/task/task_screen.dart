@@ -114,7 +114,7 @@ class _TaskScreenState extends State<TaskScreen> {
               // Task Title
               CustomTextFieldWithFormField(
                 titleText: "Task Name",
-                dynamicheight: screenHeight*0.055,
+                // dynamicheight: screenHeight*0.055,
                 placeholder: "Enter Your Task Name",
                 controller: taskTitle,
                 onChanged: (value) {
@@ -131,9 +131,9 @@ class _TaskScreenState extends State<TaskScreen> {
               // Task Description
               CustomTextFieldWithFormField(
                 titleText: "Task description",
-                placeholder: "Optimize the user interface for our mobile app, ensuring a seamless and delightful user experience. Consider incorporating user feedback and modern design trends to enhance usability and aesthetics.\n\n",
+                placeholder: "Optimize the user interface for our mobile app, ensuring a seamless and delightful user experience. Consider incorporating user feedback and modern design trends to enhance usability and aesthetics.\n",
                 controller: taskDes,
-                dynamicheight: screenHeight*0.15,
+                // dynamicheight: screenHeight*0.15,
                 keyboardType: TextInputType.multiline,
                 onChanged: (value) {
                   setState(() {});
@@ -180,7 +180,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: screenHeight * 0.05),
+              SizedBox(height: screenHeight * 0.04),
               // Create Button
               Container(
                 width: screenWidth * 0.90,

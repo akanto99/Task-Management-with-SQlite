@@ -267,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   },
                                   child: Container(
                                     width: screenWidth,
-                                    height: screenHeight *0.17,
+                                    height: screenHeight *0.18,
                                     padding: EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       color: AppColors.whiteColor,
@@ -305,11 +305,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
 
                                             Container(
-                                              height: screenHeight * 0.04,
-                                              width: task.status == 1 ? screenWidth *0.25: screenWidth*0.2,
+                                              height: screenHeight * 0.05,
+                                              width: task.status == 1 ? screenWidth *0.32: screenWidth*0.2,
                                               decoration: BoxDecoration(
                                                 color: task.status == 1 ? Color(0xffEEFFE0):Color(0xffF0EDFD),
-                                                borderRadius: BorderRadius.circular(15),
+                                                borderRadius: BorderRadius.circular(25),
                                               ),
                                               child: Center(
                                                 child: Text(

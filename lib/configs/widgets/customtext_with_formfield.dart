@@ -60,7 +60,7 @@ class _CustomTextFieldWithFormFieldState extends State<CustomTextFieldWithFormFi
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: widget.dynamicheight,
+                  // height: widget.dynamicheight,
                   width: screenWidth * 0.9,
                   decoration: BoxDecoration(
                     color: AppColors.whiteColor,
@@ -74,7 +74,7 @@ class _CustomTextFieldWithFormFieldState extends State<CustomTextFieldWithFormFi
                     controller: widget.controller,
                     focusNode: widget.focusCurrent,
                     keyboardType: widget.keyboardType,
-                    maxLines: widget.keyboardType == TextInputType.multiline ? null : 1,
+                    maxLines: widget.keyboardType == TextInputType.multiline ? 5 : 1,
                     decoration: InputDecoration(
                       errorStyle: TextStyle(
                         color: Colors.red,
@@ -88,7 +88,7 @@ class _CustomTextFieldWithFormFieldState extends State<CustomTextFieldWithFormFi
                       ),
                       contentPadding: EdgeInsets.symmetric(
                         horizontal: 10.0,
-                        vertical: 10.0,
+                        vertical: 10
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),

@@ -73,6 +73,7 @@ class _CalenderScreenState extends State<CalenderScreen> {
           colors: [
             Color(0xFFFFFFFF),
             Color(0xFFDFE4F1),
+            Color(0xFFDFE4F1),
           ],
         ),
       ),
