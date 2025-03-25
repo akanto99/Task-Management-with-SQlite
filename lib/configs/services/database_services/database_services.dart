@@ -86,4 +86,33 @@ class DatabaseService {
      List<TaskModel>tasks=data.map((e)=>TaskModel(id: e["id"] as int, status: e["status"] as int, title: e["title"]  as String, description: e["description"] as String, startTime: e["startTime"] as String, endTime: e["endTime"] as String)).toList();
     return tasks;
   }
+
+  Future<void> updateTask(TaskModel task, {int? status}) async {
+    final db = await database;
+
+    await db.update(
+      _tasksTableName,
+      {
+        _tasksTitleColumnName: task.title,
+        _tasksDescriptionColumnName: task.description,
+        _tasksStartTimeColumnName: task.startTime,
+        _tasksEndTimeColumnName: task.endTime,
+        _tasksStatusColumnName: status ?? task.status,
+      },
+      where: "$_tasksIDColumnName = ?",
+      whereArgs: [task.id],
+    );
+  }
+
+
+  Future<void> deleteTask(String id) async {
+    final db = await database;
+    await db.delete(
+      _tasksTableName,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+
 }
