@@ -323,7 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ],
                                           ),
                                           Container(
-                                            height: screenHeight * 0.048,
+                                            height: screenHeight * 0.045,
                                             width: task.status == 1
                                                 ? screenWidth * 0.32
                                                 : screenWidth * 0.2,

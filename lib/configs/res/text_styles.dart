@@ -25,7 +25,7 @@ class AppTextStyles {
     /// Medium
   );
   static final TextStyle poppins14Medium = GoogleFonts.poppins(
-      fontSize: 15,
+      fontSize: 16,
       fontWeight: FontWeight.w500,
       color: AppColors.textblackColor
     /// Medium
@@ -34,7 +34,7 @@ class AppTextStyles {
   // Custom method to allow manual color customization
   static TextStyle poppins16WithColor({ required Color color}) {
     return GoogleFonts.poppins(
-      fontSize: 17,
+      fontSize: 15,
       fontWeight: FontWeight.w500,
       color: color,/// Medium
     );
@@ -60,7 +60,7 @@ class AppTextStyles {
 
 
   static final TextStyle poppins20Medium = GoogleFonts.poppins(
-      fontSize: 21,
+      fontSize: 20,
       fontWeight: FontWeight.w600,
       color: AppColors.textblackColor
 
