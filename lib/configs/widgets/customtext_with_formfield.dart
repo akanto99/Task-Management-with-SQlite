@@ -75,6 +75,9 @@ class _CustomTextFieldWithFormFieldState extends State<CustomTextFieldWithFormFi
                     focusNode: widget.focusCurrent,
                     keyboardType: widget.keyboardType,
                     maxLines: widget.keyboardType == TextInputType.multiline ? 5 : 1,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
                     decoration: InputDecoration(
                       errorStyle: TextStyle(
                         color: Colors.red,

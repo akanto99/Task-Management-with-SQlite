@@ -30,10 +30,7 @@ class CustomDatePickerFormField extends StatelessWidget {
           width: screenWidth * 0.4,
           child: Text(
             title,
-            style: GoogleFonts.openSans(
-              textStyle: TextStyle(fontSize: 15),
-              fontWeight: FontWeight.bold,
-            ),
+            style:AppTextStyles.poppins16Medium
           ),
         ),
         SizedBox(height: 8),
@@ -45,7 +42,7 @@ class CustomDatePickerFormField extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: screenHeight * 0.055,
+                  // height: screenHeight * 0.055,
                   width: screenWidth * 0.4,
                   decoration: BoxDecoration(
                     color: AppColors.whiteColor,
@@ -59,6 +56,9 @@ class CustomDatePickerFormField extends StatelessWidget {
                     controller: controller,
                     keyboardType: TextInputType.datetime,
                     readOnly: true,
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
                     decoration: InputDecoration(
                       hintText: labelText,
                       hintStyle: AppTextStyles.poppins12Regular,
@@ -114,7 +114,7 @@ class CustomDatePickerFormField extends StatelessWidget {
                             return Theme(
                               data: Theme.of(context).copyWith(
                                 colorScheme: const ColorScheme.light(
-                                  primary: Colors.blue,
+                                  primary: AppColors.blueViolet,
                                   onPrimary: Colors.white,
                                   onSurface: Colors.black,
                                 ),

@@ -213,7 +213,15 @@ class _CalenderScreenState extends State<CalenderScreen> {
                   }
 
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text("No tasks available"));
+                    return Center(child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+
+                        Icon(Icons.event_note_outlined,color: AppColors.blueViolet,size: 35,),
+                        SizedBox(height: screenHeight*0.01,),
+                        Text("No tasks available",style: AppTextStyles.poppins20Medium),
+                      ],
+                    ));
                   }
 
                   /// Convert selectedIndex to DateTime

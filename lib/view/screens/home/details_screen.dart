@@ -8,6 +8,7 @@ import 'package:razinsoft_task_management/configs/res/components/round_button.da
 import 'package:razinsoft_task_management/configs/res/text_styles.dart';
 import 'package:razinsoft_task_management/configs/responsive/responsive_ui.dart';
 import 'package:razinsoft_task_management/configs/services/database_services/database_services.dart';
+import 'package:razinsoft_task_management/configs/utils/utils.dart';
 import 'package:razinsoft_task_management/configs/widgets/customtext_with_formfield.dart';
 import 'package:razinsoft_task_management/configs/widgets/datepicker_with_formfield.dart';
 import 'package:razinsoft_task_management/model/taskmodel.dart';
@@ -63,24 +64,26 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text("Delete Task"),
-            content: const Text("Are you sure you want to delete this task?"),
+            backgroundColor: Colors.white,
+            title:  Text("Delete Task", style:AppTextStyles.poppins16Medium,),
+            content:  Text("Are you sure you want to delete this task?", style:AppTextStyles.poppins14Medium,),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
-                child: const Text("Cancel"),
+                child:  Text("Cancel",style: TextStyle(color: AppColors.blueViolet),),
               ),
               TextButton(
                 onPressed: () async {
-                  Navigator.pop(context, true);
                   await _databaseService.deleteTask(widget.task.id.toString());
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Task deleted successfully!')),
-                  );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => NavigationScreen()),
-                  );
+                  Utils.flushBarSuccessMessage("Task deleted successfully!", context);
+                  Future.delayed(Duration(seconds: 2), () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NavigationScreen(),
+                      ),
+                    );
+                  });
                 },
                 child: const Text(
                   "Delete",
@@ -110,6 +113,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
       key: formKey,
       child: Container(
         width: screenWidth,
+        height: screenHeight,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -120,184 +124,182 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
               Color(0xFFDFE4F1)],
           ),
         ),
-        child: Column(
-          children: [
-            SizedBox(height: screenHeight * 0.04),
-            Container(
-              width: screenWidth * 0.9,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      InkWell(
-                          onTap: (){
-                            Navigator.pop(context);
-                          },
-                          child: Icon(CupertinoIcons.arrow_left, size: 28)),
-                      SizedBox(width: screenWidth * 0.03),
-                      Text('View Task', style: AppTextStyles.poppins20Medium),
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: _deleteTask,
-                    child: Container(
-                      height: screenHeight * 0.045,
-                      width: screenWidth * 0.23,
-                      decoration: BoxDecoration(
-                        color: Color(0xffFFE1E2),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Delete",
-                          style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.red,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: screenHeight * 0.04),
+              Container(
+                width: screenWidth * 0.9,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        InkWell(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                            child: Icon(CupertinoIcons.arrow_left, size: 28,color: AppColors.blackColor)),
+                        SizedBox(width: screenWidth * 0.03),
+                        Text('View Task', style: AppTextStyles.poppins20Medium),
+                      ],
+                    ),
+                    GestureDetector(
+                      onTap: _deleteTask,
+                      child: Container(
+                        height: screenHeight * 0.045,
+                        width: screenWidth * 0.23,
+                        decoration: BoxDecoration(
+                          color: Color(0xffFFE1E2),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Delete",
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.red,
 
-                            /// Medium
+                              /// Medium
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: screenHeight * 0.04),
+              SizedBox(height: screenHeight * 0.04),
 
-            Container(
-              width: screenWidth,
+              Container(
+                width: screenWidth,
 
-              decoration: BoxDecoration(
-                color: AppColors.whiteColor,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              padding: EdgeInsets.only(top: 30, bottom: 35),
-              child: Column(
-                children: [
-                  CustomTextFieldWithFormField(
-                    titleText: "Task Name",
-                    placeholder: "Enter Task Title",
-                    controller: _titleController,
-                    // dynamicheight: screenHeight * 0.055,
-                    validator: (value) {
-                      if (_titleController.text == null ||
-                          _titleController.text.isEmpty) {
-                        return 'Task Title is required.';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: screenHeight * 0.015),
-                  CustomTextFieldWithFormField(
-                    titleText: "Task description",
-                    placeholder:
-                        "Optimize the user interface for our mobile app, ensuring a seamless and delightful user experience. Consider incorporating user feedback and modern design trends to enhance usability and aesthetics.\n",
-                    controller: _descriptionController,
-                    // dynamicheight: screenHeight * 0.15,
-                    keyboardType: TextInputType.multiline,
-                    validator: (value) {
-                      if (_descriptionController.text == null ||
-                          _descriptionController.text.isEmpty) {
-                        return 'Description is required.';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: screenHeight * 0.015),
-
-                  Container(
-                    width: screenWidth * 0.9,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        /// Start Time
-                        CustomDatePickerFormField(
-                          title: "Start Date",
-                          labelText: "$currentDate",
-                          controller: _startTimeController,
-                          validator: (value) {
-                            if (_startTimeController.text == null ||
-                                _startTimeController.text.isEmpty) {
-                              return 'Start Date is required.';
-                            }
-                            return null;
-                          },
-                        ),
-
-                        /// End Time
-                        CustomDatePickerFormField(
-                          title: "End Date",
-                          labelText: "$currentDate",
-                          controller: _endTimeController,
-                          validator: (value) {
-                            if (_endTimeController.text == null ||
-                                _endTimeController.text.isEmpty) {
-                              return 'End Date is required.';
-                            }
-                            return null;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: screenHeight * 0.04),
-                  Container(
-                    width: screenWidth * 0.90,
-                    child: RoundButton(
-                      title: "Complete",
-                      loading: isLoading,
-                      onPress: () async {
-                        if (formKey.currentState!.validate()) {
-                          setState(() => isLoading = true);
-                          try {
-                            TaskModel updatedTask = TaskModel(
-                              id: widget.task.id,
-                              title: _titleController.text,
-                              description: _descriptionController.text,
-                              startTime: _startTimeController.text,
-                              endTime: _endTimeController.text,
-                              status: 1,
-                            );
-
-                            await _databaseService.updateTask(updatedTask);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Task updated successfully!'),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
-                            await Future.delayed(const Duration(seconds: 2));
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => NavigationScreen(),
-                              ),
-                            );
-                          } catch (e) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Failed to update task! Error: $e',
-                                ),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          } finally {
-                            setState(() => isLoading = false);
-                          }
+                decoration: BoxDecoration(
+                  color: AppColors.whiteColor,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: EdgeInsets.only(top: 30, bottom: 35),
+                child: Column(
+                  children: [
+                    CustomTextFieldWithFormField(
+                      titleText: "Task Name",
+                      placeholder: "Enter Task Title",
+                      controller: _titleController,
+                      // dynamicheight: screenHeight * 0.055,
+                      validator: (value) {
+                        if (_titleController.text == null ||
+                            _titleController.text.isEmpty) {
+                          return 'Task Title is required.';
                         }
+                        return null;
                       },
                     ),
-                  ),
+                    SizedBox(height: screenHeight * 0.015),
+                    CustomTextFieldWithFormField(
+                      titleText: "Task description",
+                      placeholder:
+                          "Optimize the user interface for our mobile app, ensuring a seamless and delightful user experience. Consider incorporating user feedback and modern design trends to enhance usability and aesthetics.\n",
+                      controller: _descriptionController,
+                      // dynamicheight: screenHeight * 0.15,
+                      keyboardType: TextInputType.multiline,
+                      validator: (value) {
+                        if (_descriptionController.text == null ||
+                            _descriptionController.text.isEmpty) {
+                          return 'Description is required.';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: screenHeight * 0.015),
 
-                  SizedBox(height: screenHeight * 0.02),
-                ],
+                    Container(
+                      width: screenWidth * 0.9,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          /// Start Time
+                          CustomDatePickerFormField(
+                            title: "Start Date",
+                            labelText: "$currentDate",
+                            controller: _startTimeController,
+                            validator: (value) {
+                              if (_startTimeController.text == null ||
+                                  _startTimeController.text.isEmpty) {
+                                return 'Start Date is required.';
+                              }
+                              return null;
+                            },
+                          ),
+
+                          /// End Time
+                          CustomDatePickerFormField(
+                            title: "End Date",
+                            labelText: "$currentDate",
+                            controller: _endTimeController,
+                            validator: (value) {
+                              if (_endTimeController.text == null ||
+                                  _endTimeController.text.isEmpty) {
+                                return 'End Date is required.';
+                              }
+                              return null;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.04),
+                    Container(
+                      width: screenWidth * 0.90,
+                      child: RoundButton(
+                        title: "Complete",
+                        loading: isLoading,
+                        onPress: () async {
+                          if (formKey.currentState!.validate()) {
+                            setState(() => isLoading = true);
+                            try {
+                              TaskModel updatedTask = TaskModel(
+                                id: widget.task.id,
+                                title: _titleController.text,
+                                description: _descriptionController.text,
+                                startTime: _startTimeController.text,
+                                endTime: _endTimeController.text,
+                                status: 1,
+                              );
+
+                              await _databaseService.updateTask(updatedTask);
+                              Utils.flushBarSuccessMessage("Task updated successfully!", context);
+                              Future.delayed(Duration(seconds: 2), () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NavigationScreen(),
+                                  ),
+                                );
+                              });
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Failed to update task! Error: $e',
+                                  ),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            } finally {
+                              setState(() => isLoading = false);
+                            }
+                          }
+                        },
+                      ),
+                    ),
+
+                    SizedBox(height: screenHeight * 0.02),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -7,12 +7,12 @@ class ThemeProvider extends ChangeNotifier with WidgetsBindingObserver {
   bool get isDarkMode => themeMode == ThemeMode.dark;
 
   ThemeProvider() {
-    WidgetsBinding.instance.addObserver(this); // Observe system brightness changes
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void didChangePlatformBrightness() {
-    updateSystemTheme(); // Update theme when system changes
+    updateSystemTheme();
   }
 
   Future<void> initializeTheme() async {
