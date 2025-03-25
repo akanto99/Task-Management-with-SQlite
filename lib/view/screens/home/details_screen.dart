@@ -114,7 +114,10 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFFFFFFFF), Color(0xFFDFE4F1)],
+            colors: [
+              Color(0xFFFFFFFF),
+              Color(0xFFDFE4F1),
+              Color(0xFFDFE4F1)],
           ),
         ),
         child: Column(

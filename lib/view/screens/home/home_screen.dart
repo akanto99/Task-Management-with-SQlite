@@ -251,90 +251,113 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: isActiveWorkerSelected
                           ? ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            TaskModel task = snapshot.data![index];
-                            return Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: (){
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                        builder: (context) => TaskDetailsScreen(task: task),
-                                        ),
-                                        );
-                                  },
-                                  child: Container(
-                                    width: screenWidth,
-                                    height: screenHeight *0.18,
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.whiteColor,
-                                      borderRadius: BorderRadius.circular(15),
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Color(0xffDCE1EF),
-                                        )
+                        itemCount: snapshot.data!.length + 1,  // Increase item count by 1
+                        itemBuilder: (context, index) {
+                          if (index == snapshot.data!.length) {
+                            // Extra space after the last item
+                            return SizedBox(height: screenHeight *0.1);
+                          }
+
+                          TaskModel task = snapshot.data![index];
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => TaskDetailsScreen(task: task),
                                     ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
+                                  );
+                                },
+                                child: Container(
+                                  width: screenWidth,
+                                  height: screenHeight * 0.18,
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.whiteColor,
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Color(0xffDCE1EF),
+                                    ),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
                                       Column(
                                         children: [
                                           Container(
-                                              width: screenWidth,
-                                              child: Text(task.title,style: AppTextStyles.poppins16Medium,maxLines: 2,overflow: TextOverflow.ellipsis, )),
-                                          SizedBox(height: screenHeight*(0.005),),
+                                            width: screenWidth,
+                                            child: Text(
+                                              task.title,
+                                              style: AppTextStyles.poppins16Medium,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          SizedBox(height: screenHeight * 0.005),
                                           Container(
-                                              width: screenWidth,
-                                              child: Text(task.description,style: AppTextStyles.poppins12Regular,maxLines: 2,overflow: TextOverflow.ellipsis, )),
-
+                                            width: screenWidth,
+                                            child: Text(
+                                              task.description,
+                                              style: AppTextStyles.poppins12Regular,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
                                         ],
                                       ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Icon(Icons.timer_sharp),
-                                                SizedBox(width: screenWidth*0.02,),
-                                                Text(formattedDate(task.endTime), style: AppTextStyles.poppins12Regular),
-                                              ],
-                                            ),
-
-                                            Container(
-                                              height: screenHeight * 0.05,
-                                              width: task.status == 1 ? screenWidth *0.32: screenWidth*0.2,
-                                              decoration: BoxDecoration(
-                                                color: task.status == 1 ? Color(0xffEEFFE0):Color(0xffF0EDFD),
-                                                borderRadius: BorderRadius.circular(25),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(Icons.timer_sharp),
+                                              SizedBox(width: screenWidth * 0.02),
+                                              Text(
+                                                formattedDate(task.endTime),
+                                                style: AppTextStyles.poppins12Regular,
                                               ),
-                                              child: Center(
-                                                child: Text(
-                                                  task.status == 1 ?"Completed" : "Todo" ,
-                                                  style: AppTextStyles.poppins16WithColor(color: task.status == 1 ?
-                                                  AppColors.junglegreen:AppColors.blueViolet
-                                                  ),
+                                            ],
+                                          ),
+                                          Container(
+                                            height: screenHeight * 0.048,
+                                            width: task.status == 1
+                                                ? screenWidth * 0.32
+                                                : screenWidth * 0.2,
+                                            decoration: BoxDecoration(
+                                              color: task.status == 1
+                                                  ? Color(0xffEEFFE0)
+                                                  : Color(0xffF0EDFD),
+                                              borderRadius: BorderRadius.circular(25),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                task.status == 1 ? "Completed" : "Todo",
+                                                style: AppTextStyles.poppins16WithColor(
+                                                  color: task.status == 1
+                                                      ? AppColors.junglegreen
+                                                      : AppColors.blueViolet,
                                                 ),
                                               ),
                                             ),
-
-                                          ],
-                                        )
-
-                                      ],
-                                    )
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                SizedBox(height: screenHeight *0.01,),
-                              ],
-                            );
-                          },
-                                                  )
-                          :  Center(
-                          child: Text("Completed Taks", style: TextStyle(fontSize: 20))),
+                              ),
+                              SizedBox(height: screenHeight * 0.01),
+                            ],
+                          );
+                        },
+                      )
+                          : Center(
+                          child: Text("Completed Tasks", style: TextStyle(fontSize: 20))),
+
                     ),
                   ),
 
