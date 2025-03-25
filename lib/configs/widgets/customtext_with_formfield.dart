@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:razinsoft_task_management/configs/res/color.dart';
+import 'package:razinsoft_task_management/configs/res/text_styles.dart';
 import 'package:razinsoft_task_management/provider/DarkAndLightTheme/theme_provider.dart';
 
 class CustomTextFieldWithFormField extends StatefulWidget {
   final String ?titleText;
   final String? requiredStar;
   final String placeholder;
+  final double? dynamicheight;
   final TextEditingController controller;
   final FocusNode? focusCurrent;
   final FocusNode? focusNext;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
-  final Function(String)? onFieldSubmitted;
-  final VoidCallback? onEditingComplete;
+  final TextInputType keyboardType;
 
   CustomTextFieldWithFormField({
     Key? key,
      this.titleText,
     this.requiredStar,
+    this.dynamicheight,
     required this.placeholder,
     required this.controller,
     this.focusCurrent,
     this.focusNext,
     this.validator,
     this.onChanged,
-    this.onEditingComplete,
-    this.onFieldSubmitted,
+    this.keyboardType = TextInputType.text,
   }) : super(key: key);
 
   @override
@@ -45,27 +45,13 @@ class _CustomTextFieldWithFormFieldState extends State<CustomTextFieldWithFormFi
     return Column(
       children: [
         Container(
-          width: screenWidth * 0.80,
-          child: Row(
-            children: [
-
-              Text(
-                '${widget.titleText} ',
-                  style: GoogleFonts.urbanist(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: isDarkMode ? AppColors.whiteColor: AppColors.blackColor,
-                    letterSpacing: 0.8,
-                  )
-              ),
-              Text(
-                "${widget.requiredStar ?? ''}",
-                style: const TextStyle(color: Colors.red, fontSize: 14),
-              ),
-            ],
+          width: screenWidth * 0.9,
+          child:  Text(
+              '${widget.titleText} ',
+              style: AppTextStyles.poppins16Medium
           ),
         ),
-        SizedBox(height: screenHeight * 0.02,),
+        SizedBox(height: screenHeight * 0.01,),
         FormField<String>(
           validator: widget.validator,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -74,19 +60,21 @@ class _CustomTextFieldWithFormFieldState extends State<CustomTextFieldWithFormFi
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: screenHeight * 0.055,
-                  width: screenWidth * 0.80,
+                  height: widget.dynamicheight,
+                  width: screenWidth * 0.9,
                   decoration: BoxDecoration(
                     color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(16.0),
+                    borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color:AppColors.blackColor,
-                      width: 2,
+                      color:AppColors.textgreyColor,
+                      width: 0.5,
                     ),
                   ),
                   child: TextFormField(
                     controller: widget.controller,
                     focusNode: widget.focusCurrent,
+                    keyboardType: widget.keyboardType,
+                    maxLines: widget.keyboardType == TextInputType.multiline ? null : 1,
                     decoration: InputDecoration(
                       errorStyle: TextStyle(
                         color: Colors.red,
@@ -94,12 +82,7 @@ class _CustomTextFieldWithFormFieldState extends State<CustomTextFieldWithFormFi
                         fontWeight: FontWeight.bold,
                       ),
                       hintText: widget.placeholder,
-                      hintStyle: GoogleFonts.urbanist(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.blackColor,
-                      letterSpacing: 0.8,
-                    ),
+                      hintStyle:  AppTextStyles.poppins12Regular,
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
                       ),
@@ -108,28 +91,27 @@ class _CustomTextFieldWithFormFieldState extends State<CustomTextFieldWithFormFi
                         vertical: 10.0,
                       ),
                       errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
+                        borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
                           color: Colors.red,
                           width: 0.8,
                         ),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
+                        borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
                           color: Colors.red,
                           width: 0.8,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
+                        borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
                           color: Colors.green,
                           width: 0.4,
                         ),
                       ),
                     ),
-                    onFieldSubmitted: widget.onFieldSubmitted,
                     onChanged: (value) {
                       fieldState.didChange(value);
                       if (widget.onChanged != null) {
@@ -140,15 +122,15 @@ class _CustomTextFieldWithFormFieldState extends State<CustomTextFieldWithFormFi
                 ),
                 if (fieldState.hasError)
                   Container(
-                    width: screenWidth * 0.80,
+                    width: screenWidth * 0.90,
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 4.0, left: 8.0),
+                      padding: const EdgeInsets.only(top: 4.0, left: 10.0),
                       child: Text(
                         fieldState.errorText ?? '',
                         style: const TextStyle(
                           fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color:AppColors.blackColor,
+                          fontWeight: FontWeight.w400,
+                            color: Colors.red,
                           letterSpacing: 0.2
                         ),
                       ),

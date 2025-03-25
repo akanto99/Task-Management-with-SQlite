@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:razinsoft_task_management/configs/res/color.dart';
+import 'package:razinsoft_task_management/configs/res/text_styles.dart';
 
 class CustomDatePickerFormField extends StatelessWidget {
   final String title;
@@ -25,23 +27,16 @@ class CustomDatePickerFormField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: screenWidth * 0.90,
-          child: Row(
-            children: [
-              Text(title,
-                  style: GoogleFonts.openSans(
-                    textStyle: TextStyle(fontSize: 15),
-                    fontWeight: FontWeight.bold,
-                  )
-              ),
-              Text(
-                " *",
-                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
-              )
-            ],
+          width: screenWidth * 0.4,
+          child: Text(
+            title,
+            style: GoogleFonts.openSans(
+              textStyle: TextStyle(fontSize: 15),
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-        SizedBox(height: 8,),
+        SizedBox(height: 8),
         FormField<String>(
           validator: validator,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -51,13 +46,13 @@ class CustomDatePickerFormField extends StatelessWidget {
               children: [
                 Container(
                   height: screenHeight * 0.055,
-                  width: screenWidth * 0.90,
+                  width: screenWidth * 0.4,
                   decoration: BoxDecoration(
-                    color: const Color(0xffF2F5F6),
-                    borderRadius: BorderRadius.circular(5.0),
+                    color: AppColors.whiteColor,
+                    borderRadius: BorderRadius.circular(20.0),
                     border: Border.all(
-                      color: Color(0xffEAECED),
-                      width: 1,
+                      color: AppColors.textgreyColor,
+                      width: 0.5,
                     ),
                   ),
                   child: TextFormField(
@@ -66,97 +61,95 @@ class CustomDatePickerFormField extends StatelessWidget {
                     readOnly: true,
                     decoration: InputDecoration(
                       hintText: labelText,
-                      hintStyle: TextStyle(
-                        color: Colors.black.withOpacity(0.5),
-                        fontSize: 15,
-                      ),
+                      hintStyle: AppTextStyles.poppins12Regular,
                       errorMaxLines: 3,
                       errorStyle: const TextStyle(
                         fontSize: 12.0,
                         color: Colors.red,
                         fontWeight: FontWeight.bold,
                       ),
-                      // enabledBorder: OutlineInputBorder(
-                      //   borderRadius: BorderRadius.circular(5.0),
-                      //   borderSide: const BorderSide(
-                      //     color: Colors.grey,
-                      //     width: 0.4,
-                      //   ),
-                      // ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
+                      border: OutlineInputBorder(borderSide: BorderSide.none),
                       contentPadding: const EdgeInsets.symmetric(
                         horizontal: 10.0,
                         vertical: 10.0,
                       ),
                       errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
+                        borderRadius: BorderRadius.circular(20.0),
                         borderSide: const BorderSide(
                           color: Colors.red,
                           width: 0.8,
                         ),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
+                        borderRadius: BorderRadius.circular(20.0),
                         borderSide: const BorderSide(
                           color: Colors.red,
                           width: 0.8,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
+                        borderRadius: BorderRadius.circular(20.0),
                         borderSide: const BorderSide(
                           color: Colors.green,
                           width: 0.4,
                         ),
                       ),
-                      prefixIcon: const Icon(
+                      suffixIcon: const Icon(
                         Icons.calendar_month_outlined,
-                        color: Colors.black,
+                        color: AppColors.blueViolet,
                       ),
                     ),
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                        initialEntryMode: DatePickerEntryMode.calendarOnly,
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1950),
-                        lastDate: DateTime(2101),
-                        builder: (BuildContext context, Widget? child) {
-                          return Theme(
-                            data: Theme.of(context).copyWith(
-                              colorScheme: const ColorScheme.light(
-                                primary: Colors.blue,
-                                onPrimary: Colors.white,
-                                onSurface: Colors.black,
-                              ),
-                            ),
-                            child: child!,
-                          );
-                        },
-                      );
+                      onTap: () async {
+                        DateTime? initialDate = controller.text.isNotEmpty
+                            ? DateFormat('dd/MM/yyyy').parse(controller.text)
+                            : DateTime.now();
 
-                      if (pickedDate != null) {
-                        String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
-                        controller.text = formattedDate;
-                        state.didChange(formattedDate);
+                        DateTime? pickedDate = await showDatePicker(
+                          initialEntryMode: DatePickerEntryMode.calendarOnly,
+                          context: context,
+                          initialDate: initialDate,
+                          firstDate: DateTime(1950),
+                          lastDate: DateTime(2101),
+                          builder: (BuildContext context, Widget? child) {
+                            return Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: const ColorScheme.light(
+                                  primary: Colors.blue,
+                                  onPrimary: Colors.white,
+                                  onSurface: Colors.black,
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
+                        );
+
+                        if (pickedDate != null) {
+                          String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+                          controller.text = formattedDate;
+                          state.didChange(formattedDate);
+                        }
                       }
-                    },
+
+
                   ),
                 ),
                 if (state.hasError)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4.0, left: 10),
-                    child: Text(
-                      state.errorText ?? '',
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 4.0, left: 10),
+                      child: Text(
+                        state.errorText ?? '',
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
-                  ),
+                  )
+                else
+                  Text("No Error",style:TextStyle(color: Colors.transparent) ,),
               ],
             );
           },

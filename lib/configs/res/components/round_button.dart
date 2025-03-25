@@ -29,19 +29,19 @@ class RoundButton extends StatelessWidget {
     return InkWell(
       onTap: onPress,
       child: Container(
-        height: screenHeight*0.052,
+        height: screenHeight*0.06,
         width: screenWidth*0.45,
         decoration: BoxDecoration(
-          color:AppColors.blackColor,
-          borderRadius: BorderRadius.circular(10)
+          color:AppColors.blueViolet,
+          borderRadius: BorderRadius.circular(30)
         ),
         child: Center(
             child:loading ? SizedBox(
                 height: 20,
                 width: 20,
                 child: CircularProgressIndicator(color: Colors.white,)) :  AutoSizeText(title ,
-              style: GoogleFonts.urbanist(
-              fontSize: 18,
+              style: GoogleFonts.poppins(
+              fontSize: 16,
               fontWeight: FontWeight.w500,
               color: isDarkMode ? AppColors.whiteColor : AppColors.whiteColor,
               letterSpacing: 0.8,

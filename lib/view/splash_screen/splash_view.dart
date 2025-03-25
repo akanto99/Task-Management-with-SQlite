@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:razinsoft_task_management/configs/res/color.dart';
+import 'package:razinsoft_task_management/configs/res/text_styles.dart';
 import 'package:razinsoft_task_management/configs/services/splash_services.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -50,21 +51,11 @@ class _SplashScreenState extends State<SplashScreen> {
               SizedBox(height: screenHeight*0.02),
               Text(
                 'KEEP IN TOUCH',
-                style: TextStyle(
-                  color:  AppColors.blackColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 4,
-                ),
+                style:AppTextStyles.poppins14Medium,
               ),
               Text(
                 'WITH US',
-                style: TextStyle(
-                  color:  AppColors.blackColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 4,
-                ),
+             style:AppTextStyles.poppins12Regular,
               ),
               SizedBox(height: screenHeight*0.02),
               Container(

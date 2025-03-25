@@ -87,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
           colors: [
             Color(0xFFFFFFFF),
             Color(0xFFDFE4F1),
+            Color(0xFFDFE4F1),
           ],
         ),
       ),
