@@ -9,8 +9,9 @@ import 'package:razinsoft_task_management/view/screens/home/home_screen.dart';
 import 'package:razinsoft_task_management/view/screens/task/task_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
+  final int initialIndex;
 
-  const NavigationScreen({super.key, });
+  const NavigationScreen({super.key,this.initialIndex =0});
 
   @override
   State<NavigationScreen> createState() => _NavigationScreenState();
@@ -40,6 +41,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   @override
   void initState() {
     super.initState();
+    _currentIndex = widget.initialIndex;
   }
 
   @override
